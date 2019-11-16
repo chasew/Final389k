@@ -1,0 +1,178 @@
+/* Please add your own! */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    width: 90%;
+    margin: 40px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+/****************
+      MAIN 
+*****************/
+
+
+
+.dropbtn {
+    padding: 10px;
+    border: 0;
+    background-color: tomato;
+    display: inline;
+    font-weight: bold;
+    color: white;
+    border-radius: 50%;
+    
+    font-weight: bold;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: tomato;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a{
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content{display:block;}
+
+.dropdown:hover .dropbtn {background-color:crimson;}
+
+h1 {
+    font-weight: 700;
+}
+
+article {
+    padding: 10px;
+    background-color: #ecf0f1;
+    margin-bottom: 30px;
+}
+
+.nav .tag {
+    padding: 10px;
+    background-color: tomato;
+    display: inline;
+    font-weight: bold;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.nav input[type=text]{
+    float:right;
+    padding:6px;
+    border:dashed;
+    border-radius: 16px;
+    margin-top:8px;
+    margin-right:16px;
+    
+}
+
+#createNew {
+    border: none;
+    padding: 10px;
+    background-color: cadetblue;
+    border-radius: 12px;
+    display: inline-block;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+#createNew:hover{
+    background-color: #2c3e50;
+    color: white;
+}
+
+
+/****************
+      FORM 
+*****************/
+
+.input-field {
+    padding: 10px 0;
+}
+
+label {
+    display: block;
+    padding-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+textarea {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 80%;
+}
+
+
+
+
+/****************
+    BLOG POST 
+*****************/
+
+.title-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.title {
+    display: inline;
+    margin-right: 20px;
+}
+
+.content {
+    padding: 20px;
+    width: 60%;
+    margin: 0 auto;
+    background-color: #2c3e50;
+    color: white;
+}
+
+    .content a {
+        color: white;
+    }
+
+.review {
+    padding: 20px;
+    width: 60%;
+    margin: 0 auto;
+    background-color: #2c3e50;
+    color: white;
+}
+
+    .review a {
+        color: white;
+    }

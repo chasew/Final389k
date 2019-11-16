@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+  <title>Final Project</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+</head>
+<div class="nav">
+    <h1>College Park Restaurant Ratings</h1>
+
+    <div class="dropdown">
+        <button class="dropbtn">Tags</button>
+
+        <div class="dropdown-content">
+                {{#each tags}}
+                <a href="/tag/{{this}}" >{{this}}</a>
+                {{/each}}
+            
+        </div>
+        
+    </div>
+    <a href="/tag/5Star" class="tag">5 Stars</a>
+    <a href="/nav/Newest" class="tag">Newest</a>
+    <a href="/nav/Alphabetical" class="tag">Alphabetical</a>
+    <a href="/nav/Random" class="tag">Random</a>
+    <form id="inputForm">
+
+        {{#if input}}
+            <input id="input" type="text" value={{{input}}} onkeyup="myInputFunction(this.value)" />
+        {{else}}
+            <input id="input" type="text" placeholder="Search" onkeyup="myInputFunction(this.value)" />
+        {{/if}}
+
+
+    </form>
+    
+
+</div>
+
+<body>
+    <br>
+    <button type="button" id="createNew" color="cadetBlue">Enter a review</button> {{{body}}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script>
+        $('#createNew').on('click', function() {
+        //console.log("hi");
+        window.open("/create");
+        });
+    </script>
+
+    <script>
+        function myInputFunction(val) {
+            
+            var str = "/nav/Search/" + val;
+            $('input').val(val);
+            var myWindow = window;
+            $('input').val(val);
+            var textNode = myWindow.document.createTextNode(val);
+            $('input').val(val);
+            myWindow.document.getElementById("input").appendChild(textNode);
+            myWindow.location.replace(str);
+            $('input').val(val);
+            myWindow.document.getElementById("input").appendChild(textNode);
+            $('input').val(val);
+        }
+
+    </script>
+</body>
+
+</html>
