@@ -39,22 +39,45 @@
 
 </div>
 
-<body>
+<body bgcolor="#223843">
     <br>
-    <button type="button" id="createNew" color="cadetBlue">Enter a review</button> {{{body}}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <div class="buttonGroup">
+        <button type="button" id="createNew">Enter a review</button>
+        <button type="button" id="aboutNew">Click to Learn About Us!</button>
+        <button type="button" id="extraNew">Try Me!</button>
+        <br />
+        <br />
+        {{{body}}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+        <br />
+        <br />
+    </div>
+
     <script>
-        $('#createNew').on('click', function() {
-        //console.log("hi");
-        window.open("/create");
+        $('#createNew').on('click', function () {
+            //console.log("hi");
+            window.open("/create");
+        });
+    </script>
+    <script>
+        $('#aboutNew').on('click', function () {
+            //console.log("hi");
+            window.open("/about");
+        });
+    </script>
+    <script>
+        $('#extraNew').on('click', function () {
+            //console.log("hi");
+            window.open("/extra");
         });
     </script>
 
     <script>
         function myInputFunction(val) {
-            
+
             var str = "/nav/Search/" + val;
             $('input').val(val);
+            //var myWindow = window.open(str, "", "", true);
             var myWindow = window;
             $('input').val(val);
             var textNode = myWindow.document.createTextNode(val);

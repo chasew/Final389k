@@ -10,6 +10,7 @@ var moment = require('moment');
 var marked = require('marked');
 var app = express();
 
+
 var _DATA = dataUtil.loadData().review_posts;
 
 app.use(logger('dev'));
@@ -19,10 +20,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
-/* Add whatever endpoints you need! Remember that your API endpoints must
- * have '/api' prepended to them. Please remember that you need at least 5
- * endpoints for the API, and 5 others.
- */
+
 
 app.get('/', function (req, res) {
     var tags = dataUtil.getAllTags(_DATA);
@@ -39,14 +37,31 @@ app.get("/create", function (req, res) {
     });
 });
 
+app.get("/about", function (req, res) {
+    console.log("Thanks for clicking".rainbow);
+    var tags = dataUtil.getAllTags(_DATA);
+    res.render('about', {
+        tags: tags
+    });
+});
+
+app.get("/error", function (req, res) {
+    console.log("Sorry about the error".rainbow);
+    var tags = dataUtil.getAllTags(_DATA);
+    res.render('404', {
+        tags: tags
+    });
+});
+
+app.get("/extra", function (req, res) {
+    res.render('extra', {});
+});
+
 app.post('/create', function (req, res) {
-
     var body = req.body;
-
     // Transform tags and content 
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
-
     // Add time and preview
     body.preview = body.content.substring(0, 300);
     body.time = moment().format('MMMM Do YYYY, h:mm a');
@@ -54,17 +69,11 @@ app.post('/create', function (req, res) {
     if (rating == 5) {
         body.tags.push("5Star");
     }
-
     // Save new blog post
     _DATA.push(req.body);
     dataUtil.saveData(_DATA);
     res.redirect("/");
 });
-
-app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review', function (req, res) {
-
-});
-
 
 app.get('/post/:slug', function (req, res) {
     var _slug = req.params.slug;
@@ -187,13 +196,76 @@ app.get('/nav/Random', function (req, res) {
     });
 });
 
-
 app.get('/api', function (req, res) {
     var contents = '';
     for (x in _DATA) {
         contents.concat(x + "\n");
     }
     res.json(_DATA)
+});
+
+app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review', function (req, res) {
+    var u = req.params.username;
+    var r = req.params.restaurant_name;
+    var s = req.params.slug;
+    var array = req.params.array;
+    var c = req.params.c;
+    var review = req.params.review;
+
+    if (!u) { res.json({}); };
+    if (!r) { res.json({}); };
+    if (!s) { res.json({}); }
+    if (!array) { res.json({}); };
+    if (!c) { res.json({}); };
+    if (!review) { res.json({}); };
+
+    var body = req.body;
+    body.push(u);
+    body.push(r);
+    body.push(s);
+    body.push(array);
+    body.push(c);
+    body.push(review);
+
+    // Transform tags and content 
+    body.tags = body.tags.split(" ");
+    body.content = marked(body.content);
+
+    // Add time and preview
+    body.preview = body.content.substring(0, 300);
+    body.time = moment().format('MMMM Do YYYY, h:mm a');
+    var rating = parseInt(body.review);
+    if (rating == 5) {
+        body.tags.push("5Star");
+    }
+
+    // Save new blog post
+    //_DATA.push(req.body);
+    dataUtil.saveData(_DATA);
+    res.json(s);
+});
+
+app.delete('/api/slug/:slug/remove/:tag', function (req, res) {
+    var _name = req.params.slug;
+    if (!_name) { res.json({}); };
+    var _tag = req.params.tag
+    var result = _.findWhere(_DATA, { slug: _name })
+    if (!result) { return res.json({}); };
+    var newArray = [];
+
+    for (var i in result["tags"]) {
+        if (result["tags"][i] != _tag) {
+            newArray.push(result["tags"][i]);
+        }
+    }
+    result.tags = newArray;
+    var s = { slug: _name, tags: newArray }
+    dataUtil.saveData(_DATA);
+    res.json(s);
+});
+
+app.delete('/', function (req, res) {
+
 });
 
 app.listen(3000, function() {

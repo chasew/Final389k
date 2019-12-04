@@ -11,8 +11,15 @@
     "license": "ISC",
     "dependencies": {
         "body-parser": "^1.17.1",
+        "draggabilly": "^2.2.0",
         "express": "^4.15.2",
         "express-handlebars": "^3.0.0",
-        "morgan": "^1.8.1"
+        "flickity": "^2.2.1",
+        "marked": "^0.7.0",
+        "moment": "^2.24.0",
+        "morgan": "^1.9.1",
+        "packery": "^2.1.2",
+        "plain-draggable": "^2.5.12",
+        "underscore": "^1.9.1"
     }
 }

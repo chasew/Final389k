@@ -1,4 +1,4 @@
-/* Please add your own! */
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900');
 
 body {
@@ -17,12 +17,18 @@ body {
       MAIN 
 *****************/
 
+.kelly {
+    color: #e7e6f7;
+}
 
+.about {
+    color: #e7e6f7;
+}
 
 .dropbtn {
     padding: 10px;
     border: 0;
-    background-color: tomato;
+    background-color: #a07178;
     display: inline;
     font-weight: bold;
     color: white;
@@ -41,7 +47,7 @@ body {
 .dropdown-content{
     display: none;
     position: absolute;
-    background-color: tomato;
+    background-color: #a07178;
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -56,25 +62,30 @@ body {
     font-weight: bold;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #e6ccbe;}
 
 .dropdown:hover .dropdown-content{display:block;}
 
-.dropdown:hover .dropbtn {background-color:crimson;}
+.dropdown:hover .dropbtn {background-color:#a07178;}
 
 h1 {
     font-weight: 700;
+    color: white;
+}
+
+h2{
+    color: white;
 }
 
 article {
     padding: 10px;
-    background-color: #ecf0f1;
+    background-color: #49475b;
     margin-bottom: 30px;
 }
 
 .nav .tag {
     padding: 10px;
-    background-color: tomato;
+    background-color: #a07178;
     display: inline;
     font-weight: bold;
     color: white;
@@ -95,19 +106,118 @@ article {
 #createNew {
     border: none;
     padding: 10px;
-    background-color: cadetblue;
+    background-color: #bbbe64;
     border-radius: 12px;
-    display: inline-block;
+    display: inline;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
+    margin: 5px;
 }
 #createNew:hover{
-    background-color: #2c3e50;
+    background-color: #c8cc92;
     color: white;
 }
+
+#aboutNew {
+    border: none;
+    padding: 10px;
+    background-color: #bbbe64;
+    border-radius: 10px;
+    display: inline;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+#aboutNew:hover {
+    background-color: #c8cc92;
+    color: white;
+}
+
+#extraNew {
+    border: none;
+    padding: 10px;
+    background-color: #bbbe64;
+    border-radius: 10px;
+    display: inline;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+#extraNew:hover {
+    background-color: #c8cc92;
+    color: white;
+}
+
+
+.buttonGroup button {
+    float: left;
+    padding: 20px 34px;
+}
+
+
+
+/*******Flickity********/
+/*                    */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.carousel {
+    background: #223843;
+}
+
+
+.carousel img {
+    display: block;
+    height: 200px;
+    padding: 10px;
+}
+
+@media screen and ( min-width: 768px ) {
+    .carousel img {
+        height: 200px;
+    }
+}
+
+
+/********draggabilly*************/
+.draggable {
+    width: 140px;
+    height: 140px;
+    background: #F90;
+    border-radius: 10px;
+}
+
+    .draggable.is-pointer-down {
+        background: #09F;
+    }
+
+    .draggable.is-dragging {
+        opacity: 0.7;
+    }
+
+
+
+
+
+
+
 
 
 /****************
@@ -157,19 +267,19 @@ textarea {
     padding: 20px;
     width: 60%;
     margin: 0 auto;
-    background-color: #2c3e50;
+    background-color: #443850;
     color: white;
 }
 
     .content a {
-        color: white;
+        color: #e6ccbe;
     }
 
 .review {
     padding: 20px;
     width: 60%;
     margin: 0 auto;
-    background-color: #2c3e50;
+    background-color: #443850;
     color: white;
 }
 
