@@ -9,7 +9,8 @@ var handlebars = exphbs.handlebars;
 var moment = require('moment');
 var marked = require('marked');
 var app = express();
-
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var _DATA = dataUtil.loadData().review_posts;
 
@@ -28,6 +29,7 @@ app.get('/', function (req, res) {
         data: _DATA,
         tags: tags
     });
+
 })
 
 app.get("/create", function (req, res) {
@@ -59,7 +61,7 @@ app.get("/extra", function (req, res) {
 
 app.post('/create', function (req, res) {
     var body = req.body;
-    // Transform tags and content 
+    // Transform tags and content
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
     // Add time and preview
@@ -117,7 +119,7 @@ app.get('/nav/Newest', function (req, res) {
     });
 
     res.render('home', {
-       
+
         data: posts,
         tags: tags
     });
@@ -127,7 +129,7 @@ app.get('/nav/Alphabetical', function (req, res) {
     //alphabetical by restaurant name
     var tags = dataUtil.getAllTags(_DATA);
     var newLst = _.sortBy(_DATA, "restaurant_name");
-    
+
     var posts = [];
     newLst.forEach(function (post) {
         if (!posts.includes(post)) {
@@ -152,7 +154,7 @@ app.get('/nav/Search/:name', function (req, res) {
         if (sub.includes(name)) {
             posts.push(post);
         }
-        
+
     });
     res.render('home', {
         data: posts,
@@ -169,6 +171,14 @@ app.get('/nav/Search/', function (req, res) {
         data: _DATA,
         tags: tags
     });
+});
+
+app.get('/chatRoom', function (req, res) {
+  var tags = dataUtil.getAllTags(_DATA);
+  res.render('chat', {
+      data: _DATA,
+      tags: tags
+  });
 });
 
 app.get('/nav/Random', function (req, res) {
@@ -227,7 +237,7 @@ app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review',
     body.push(c);
     body.push(review);
 
-    // Transform tags and content 
+    // Transform tags and content
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
 
@@ -268,6 +278,33 @@ app.delete('/', function (req, res) {
 
 });
 
-app.listen(3000, function() {
+http.listen(3000, function() {
     console.log('Listening on port 3000!');
+});
+
+io.on('connection', function(socket) {
+    console.log('NEW connection');
+    /*
+        - Handle listening for "messages"
+            -> socket.on(message, function(msg)){...}
+        - Sending out messages to ALL clients currently connected
+            -> io.emit(message, contentOfMessage)
+    */
+
+    /*        ===================TASK 1====================
+        TASK 1 (SERVER END): Handle a new chat message from a client
+        Steps to compelete task 1 on server end.
+            1. Listen for a new chat message
+            2. Emit new chat message to all clients currently connected
+    */
+   //Task 1 - Step 1: Listen for a new chat message
+    socket.on('chat message', function(msg) {
+        //Task 2 - Step 2: Emit new chat message to all clients currently connected
+        io.emit('chat message', msg);
+    })
+
+
+    socket.on('disconnect', function() {
+        console.log('User has disconnected');
+    });
 });
