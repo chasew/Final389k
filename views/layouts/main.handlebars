@@ -17,14 +17,15 @@
                 {{#each tags}}
                 <a href="/tag/{{this}}" >{{this}}</a>
                 {{/each}}
-            
+
         </div>
-        
+
     </div>
     <a href="/tag/5Star" class="tag">5 Stars</a>
     <a href="/nav/Newest" class="tag">Newest</a>
     <a href="/nav/Alphabetical" class="tag">Alphabetical</a>
     <a href="/nav/Random" class="tag">Random</a>
+    <a href="/chatRoom" class="tag">Chat Room</a>
     <form id="inputForm">
 
         {{#if input}}
@@ -35,7 +36,7 @@
 
 
     </form>
-    
+
 
 </div>
 
@@ -52,7 +53,9 @@
         <br />
         <br />
     </div>
-
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script>var socket = io();</script>
     <script>
         $('#createNew').on('click', function () {
             //console.log("hi");

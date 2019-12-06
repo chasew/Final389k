@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+</head>
+<body>
+  <div style="padding-top: 50px"></div>
+  <div style="background-color:white">
+  <ul id="messages"></ul>
+  </div>
+  <form id="box" action="">
+  	<input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+    {{{body}}}
+    <script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script>
+        /*
+            Allow client to use socket.io
+                1. Include socket.io javascript library
+                2. Have client open it's end of the web socket -> var socket = io()
+            Now client can listen to messages from server
+                -> socket.on(message, function(msg)){...}
+
+            And emit message to server via web sockets
+                -> socket.emit(message, contentOfMessage){...}
+        */
+        //============OPEN UP SOCKET CONNECTION HERE=============
+        var socket = io();
+        //=======================================================
+        /*
+            TASK 1 (CLIENT END): Handle new chat message from client
+            Steps to complete task from client end:
+                1. Send/emit a message to server when a new chat message is submitted
+                2. Listen for message from server when some client created a new chat message
+                    - The HTML page should update to show the new message that was sent
+        */
+        //Task 1 - Step 1: Send/emit a message to server when a new chat message is submitted
+        $('#box').submit(function(){ //When send button is pressed
+            socket.emit('chat message', $('#m').val())
+            $('#m').val('');
+            return false; //Ensures the page does not reload
+        });
+        //Task 1 - Step 2: Listen for message from server when some client created a new chat message and update HTML page
+        socket.on('chat message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+	</script>
+</body>
+</html>
