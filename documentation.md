@@ -1,5 +1,4 @@
 
-
 # College Park Restaurant Reviews
 
 ---
@@ -8,7 +7,7 @@ Names: Kelly White, Chase Wooten, Ryan Davis
 
 Date: December 6th, 2019
 
-Project Topic: College Park Restaurant Reviews 
+Project Topic: College Park Restaurant Reviews
 
 URL: localhost:3000/
 
@@ -29,8 +28,12 @@ view at localhost:3000/about
 Post a review:
 localhost/3000/api/create/:username/:restaurant_name/:slug/:array/:content/:review
 
+Post:
+
 Delete a tag from a review:
 localhost/3000/api/slug/:slug/remove/:tag
+
+Delete:
 
 ### 5. Modules
 
@@ -47,3 +50,5 @@ Drag Square around
 Used Coolor.co
 
 ### 8. Deployment
+
+

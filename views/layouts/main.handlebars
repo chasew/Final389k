@@ -21,11 +21,12 @@
         </div>
 
     </div>
+    <a href="/" class="tag">Home</a>
     <a href="/tag/5Star" class="tag">5 Stars</a>
     <a href="/nav/Newest" class="tag">Newest</a>
     <a href="/nav/Alphabetical" class="tag">Alphabetical</a>
     <a href="/nav/Random" class="tag">Random</a>
-    <a href="/chatRoom" class="tag">Chat Room</a>
+    <a href="/chatRoom" class="tag">Live Discussion</a>
     <form id="inputForm">
 
         {{#if input}}
@@ -77,7 +78,6 @@
 
     <script>
         function myInputFunction(val) {
-
             var str = "/nav/Search/" + val;
             $('input').val(val);
             //var myWindow = window.open(str, "", "", true);
@@ -91,7 +91,6 @@
             myWindow.document.getElementById("input").appendChild(textNode);
             $('input').val(val);
         }
-
     </script>
 </body>
 

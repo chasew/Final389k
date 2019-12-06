@@ -8,9 +8,13 @@ var exphbs = require('express-handlebars');
 var handlebars = exphbs.handlebars;
 var moment = require('moment');
 var marked = require('marked');
+var mongoose = require('mongoose');
+var dotenv = require('dotenv');
 var app = express();
+var Restaurant = require('./models/Restaurant');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var timefunction = require('./module1.js');
 
 var _DATA = dataUtil.loadData().review_posts;
 
@@ -22,14 +26,37 @@ app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
 
+//TRYING TO USE MONGO :(
+
+// Load envirorment variables
+dotenv.config();
+
+
+// Connect to MongoDB
+console.log(process.env.MONGODB)
+mongoose.connect(process.env.MONGODB);
+mongoose.connection.on('error', function() {
+    console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+    process.exit(1);
+});
+
+//END MONGO CODE
 
 app.get('/', function (req, res) {
     var tags = dataUtil.getAllTags(_DATA);
+    
+    console.log(_DATA)
+    console.log(tags)
+
+    Restaurant.find({}, function(err, rests) {
+        if (err) throw err;
+        //res.send(rests);
+        console.log(rests);
+    });
     res.render('home', {
         data: _DATA,
         tags: tags
     });
-
 })
 
 app.get("/create", function (req, res) {
@@ -61,7 +88,7 @@ app.get("/extra", function (req, res) {
 
 app.post('/create', function (req, res) {
     var body = req.body;
-    // Transform tags and content
+    // Transform tags and content 
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
     // Add time and preview
@@ -119,7 +146,7 @@ app.get('/nav/Newest', function (req, res) {
     });
 
     res.render('home', {
-
+       
         data: posts,
         tags: tags
     });
@@ -129,7 +156,7 @@ app.get('/nav/Alphabetical', function (req, res) {
     //alphabetical by restaurant name
     var tags = dataUtil.getAllTags(_DATA);
     var newLst = _.sortBy(_DATA, "restaurant_name");
-
+    
     var posts = [];
     newLst.forEach(function (post) {
         if (!posts.includes(post)) {
@@ -154,7 +181,7 @@ app.get('/nav/Search/:name', function (req, res) {
         if (sub.includes(name)) {
             posts.push(post);
         }
-
+        
     });
     res.render('home', {
         data: posts,
@@ -171,14 +198,6 @@ app.get('/nav/Search/', function (req, res) {
         data: _DATA,
         tags: tags
     });
-});
-
-app.get('/chatRoom', function (req, res) {
-  var tags = dataUtil.getAllTags(_DATA);
-  res.render('chat', {
-      data: _DATA,
-      tags: tags
-  });
 });
 
 app.get('/nav/Random', function (req, res) {
@@ -207,20 +226,21 @@ app.get('/nav/Random', function (req, res) {
 });
 
 app.get('/api', function (req, res) {
-    var contents = '';
-    for (x in _DATA) {
-        contents.concat(x + "\n");
-    }
-    res.json(_DATA)
+
+    Restaurant.find({}, function(err, restaurants) {
+        if (err) throw err;
+        res.send(restaurants);
+    });
+
 });
 
-app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review', function (req, res) {
-    var u = req.params.username;
-    var r = req.params.restaurant_name;
-    var s = req.params.slug;
-    var array = req.params.array;
-    var c = req.params.c;
-    var review = req.params.review;
+app.post('/api/create/', function (req, res) {
+    var u = req.body.user;
+    var r = req.body.restaurant_name;
+    var s = req.body.slug;
+    var array = req.body.tags;
+    var c = req.body.content;
+    var review = req.body.review;
 
     if (!u) { res.json({}); };
     if (!r) { res.json({}); };
@@ -229,15 +249,21 @@ app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review',
     if (!c) { res.json({}); };
     if (!review) { res.json({}); };
 
-    var body = req.body;
-    body.push(u);
-    body.push(r);
-    body.push(s);
-    body.push(array);
-    body.push(c);
-    body.push(review);
 
-    // Transform tags and content
+    var review = new Restaurant({
+        title: req.body.restaurant_name,
+        food: req.body.tags.toString(),
+        rating: parseInt(req.body.review)
+    });
+
+    review.save(function(err) {
+        if (err) throw err;
+        //res.redirect("/");
+        //return res.send('Succesfully inserted movie.');
+    });
+
+    /*
+    // Transform tags and content 
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
 
@@ -253,10 +279,23 @@ app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review',
     //_DATA.push(req.body);
     dataUtil.saveData(_DATA);
     res.json(s);
-});
+    */
 
-app.post('/api/', function (req, res) {
-
+   var body = req.body;
+   // Transform tags and content 
+   body.tags = body.tags.split(" ");
+   body.content = marked(body.content);
+   // Add time and preview
+   body.preview = body.content.substring(0, 300);
+   body.time = timefunction.getTime();
+   var rating = parseInt(body.review);
+   if (rating == 5) {
+       body.tags.push("5Star");
+   }
+   // Save new blog post
+   _DATA.push(req.body);
+   dataUtil.saveData(_DATA);
+   res.redirect("/");
 });
 
 app.delete('/api/slug/:slug/remove/:tag', function (req, res) {
@@ -278,8 +317,16 @@ app.delete('/api/slug/:slug/remove/:tag', function (req, res) {
     res.json(s);
 });
 
-app.delete('/api/', function (req, res) {
+app.delete('/', function (req, res) {
 
+});
+
+app.get('/chatRoom', function (req, res) {
+    var tags = dataUtil.getAllTags(_DATA);
+    res.render('chat', {
+        data: _DATA,
+        tags: tags
+    });
 });
 
 http.listen(3000, function() {
