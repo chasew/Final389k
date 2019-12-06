@@ -1,12 +1,11 @@
 
-
 # College Park Restaurant Reviews
 
 ---
 
-Names: Kelly White, Chase Wooten, Ryan Davis
+Name: Kelly White
 
-Date: December 6th, 2019
+Date: November 1st, 2019
 
 Project Topic: College Park Restaurant Reviews
 
@@ -14,40 +13,80 @@ URL: localhost:3000/
 
 ---
 
-### 1. Midterm Project Requirements
 
-### 2. Live Updates
+### 1. Data Format and Storage
+
+Data point fields:
+- `Field 1`: user					`Type: String`
+- `Field 2`: restaurant_name        `Type: String`
+- `Field 3`: slug				    `Type: String`
+- `Field 4`: tags			        `Type: [String]`
+- `Field 5`: content		        `Type: String`
+- `Field 6`: review		            `Type: Number`
+- `Field 7`: preview		        `Type: String`
+- `Field 8`: time			        `Type: Date`
+
+Schema: 
+```javascript
+{
+   user: String,
+   restaurant_name: String,
+   slug: String,
+   tags: [String],
+   content: String,
+   review: Number,
+   preview: String,
+   time: Date
+}
+```
+
+### 2. Add New Data
+
+HTML form route: `/create`
+
+POST endpoint route: `/api/create/:username/:restaurant_name/:slug/:[ts]/:content/:review`
+
+Example Node.js POST request to endpoint: 
+```javascript
+var request = require("request");
+
+var options = { 
+    method: 'POST',
+    url: 'http://localhost:3000/create',
+    headers: { 
+        'content-type': 'application/x-www-form-urlencoded' 
+    },
+    form: { 
+      user: "k1",
+      restaurant_name: "Tea",
+      slug: "k1_tea",
+      tags: [ "Tea" ],
+      content: "<p>Tea</p>\n",
+      review: 5,
+    } 
+};
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+```
 
 ### 3. View Data
-form submission page: create.handlebars
-view at localhost:3000/create
 
-about page: about.handlebars
-view at localhost:3000/about
+GET endpoint route: `/api`
 
-### 4. API
-Post a review:
-localhost/3000/api/create/:username/:restaurant_name/:slug/:array/:content/:review
+### 4. Search Data
 
-Post:
+Search Field: `restaurant_name`
 
-Delete a tag from a review:
-localhost/3000/api/slug/:slug/remove/:tag
+### 5. Navigation Pages
 
-Delete:
+Navigation Filters
+1. Tags -> `/tag/:tag`
+2. 5 Stars -> `/tag/:tag`
+3. Newest -> `/nav/Newest`
+4. Alphabetical -> `/nav/Alphabetical`
+5. Random -> `/nav/Random`
 
-### 5. Modules
-
-### 6. NPM Packages
-1. Flickity
-to view, go to localhost:3000
-Under Featured Restaurants, flickable list of restaurant logos
-
-2. Draggabilly
-to view go to localhost:3000/extra
-Drag Square around
-
-### 7. User Interface
-Used Coolor.co
-
-### 8. Deployment

@@ -36,14 +36,14 @@ var restaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    price: {
+    rating: {
         type: Number,
         min: 0,
-        max: 3,
+        max: 5,
         required: true
     },
-    menu: [menuSchema],
-    reviews: [reviewSchema]
+    //menu: [menuSchema],
+    //reviews: [reviewSchema]
 });
 
 var Restaurant = mongoose.model('Restaurant', restaurantSchema);
