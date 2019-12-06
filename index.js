@@ -255,6 +255,10 @@ app.post('/api/create/:username/:restaurant_name/:slug/:array/:content/:review',
     res.json(s);
 });
 
+app.post('/api/', function (req, res) {
+
+});
+
 app.delete('/api/slug/:slug/remove/:tag', function (req, res) {
     var _name = req.params.slug;
     if (!_name) { res.json({}); };
@@ -274,7 +278,7 @@ app.delete('/api/slug/:slug/remove/:tag', function (req, res) {
     res.json(s);
 });
 
-app.delete('/', function (req, res) {
+app.delete('/api/', function (req, res) {
 
 });
 
