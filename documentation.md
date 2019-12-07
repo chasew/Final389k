@@ -51,4 +51,5 @@ Used Coolor.co
 
 ### 8. Deployment
 
-
+### 9. Live Updates
+Incorporated sockets into a chatroom using socket.io
