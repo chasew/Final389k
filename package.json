@@ -16,7 +16,7 @@
         "express": "^4.15.2",
         "express-handlebars": "^3.0.0",
         "flickity": "^2.2.1",
-        "marked": "^0.7.0",
+        "marked": "^4.0.10",
         "moment": "^2.24.0",
         "mongoose": "^5.7.13",
         "morgan": "^1.9.1",
