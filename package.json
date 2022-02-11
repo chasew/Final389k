@@ -14,7 +14,7 @@
         "dotenv": "^8.2.0",
         "draggabilly": "^2.2.0",
         "express": "^4.15.2",
-        "express-handlebars": "^3.0.0",
+        "express-handlebars": "^5.3.1",
         "flickity": "^2.2.1",
         "marked": "^0.7.0",
         "moment": "^2.24.0",
