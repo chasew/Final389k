@@ -22,7 +22,7 @@
         "morgan": "^1.9.1",
         "packery": "^2.1.2",
         "plain-draggable": "^2.5.12",
-        "socket.io": "^2.3.0",
+        "socket.io": "^2.5.0",
         "underscore": "^1.9.1"
     }
 }
